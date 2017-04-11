@@ -1426,5 +1426,5 @@ if __name__ == '__main__':
 	run(num_repeats=10, ND_mean=2.5, ND_sd=0.14, XT=10, YT=10, XR=8,
 		YR=8, default_polarity_markers=True, PM_type="square", PM_strength_increase=5.0,
 		activity_pattern = "pairs", dt=1.0, beta=0.05, gamma=0.025, delta=-0.06, alpha=-0.5, theta=(10.0*(1)), 
-		h=(0.016*0.05), num_loops=1000000, verbose=False, epsilon=(2.0*(1)))
+		h=(0.016*0.025), num_loops=2000000, verbose=False, epsilon=(2.0*(1)))
 
