@@ -1,1 +1,0 @@
-cython -a project_cython_v8.pyx
