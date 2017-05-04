@@ -1,18 +1,7 @@
 '''
 George Baxter
-Project - Cython script
-1/04/17
-'''
-'''
-Differences to previous version:
-
-	- new activation patterns including:
-		-> grids of 4
-		-> sweep
-		-> 2 pairs
-		-> pulse (this shouldn't work)
-		-> singles (this shouldn't work)
-		-> 2 singles (this shouldn't work)
+Neural Activity Model of Retinotopic Map Formation
+Cython Script
 '''
 
 import numpy as np
@@ -377,8 +366,9 @@ def implement_polarity_markers(PM_type, s, default_polarity_markers, XR, YR, XT,
 	Description
 		- If 'PM_type' == 'Square' then the 'square_polarity_markers' function 
 		is used to set up the PMs
-		if 'PM_type' == 'Graded' then the 'graded_polarity_markers' function is
+		- if 'PM_type' == 'Graded' then the 'graded_polarity_markers' function is
 		used to set up the PMs
+		- if 'PM_type' == 'none' then 's' is returned unmodified
 
 	Parameters
 		PM_type - string, determines which of the polarity marker functions is 
@@ -404,6 +394,9 @@ def implement_polarity_markers(PM_type, s, default_polarity_markers, XR, YR, XT,
 										YT, PM_strength_increase)
 	elif PM_type == "graded":
 		return graded_polarity_markers(s, XT, YT, XR, YR)
+
+	elif PM_type == "none":
+		return s
 
 # Normalisation
 @cython.wraparound(True)
@@ -508,7 +501,7 @@ cdef np.ndarray retinal_neuron_squares(int XR, int YR):
 	'''
 	Select Squares of Retinal Neurons
 
-	N.B. Increase 'theta' and 'epsilon' by 2x and reduce 'h' (relative to 
+	N.B. Increase 'theta' and 'epsilon' by 2x (relative to 
 	original parameters in the paper)
 
 	Description
@@ -583,7 +576,7 @@ cdef np.ndarray retinal_neuron_sweep(int XR, int YR, int loop_count):
 	'''
 	Select Rows/Columns of Retinal Neurons for Sweep Activation Pattern
 
-	N.B. Increase 'theta' and 'epsilon' by 'XR'x and reduce 'h' (relative to 
+	N.B. Increase 'theta' and 'epsilon' by 'XR'x (relative to 
 	original parameters in the paper)
 
 	Description
@@ -647,8 +640,8 @@ cdef np.ndarray retinal_neuron_2_pairs(int XR, int YR):
 	'''
 	Select Two Pairs of Retinal Neurons
 
-	N.B. the level of non-correlated activity introduced by this activity
-	pattern is expected NOT to be suffucient to prevent map formation
+	N.B. Increase 'theta' and 'epsilon' by 2x (relative to 
+	original parameters in the paper)
 
 	Description
 		- This function randomly selects and activates two pairs of adjacent
@@ -790,7 +783,7 @@ cdef np.ndarray retinal_neuron_strobe(int XR, int YR):
 	'''
 	Select Retinal Neurons for Strobe Pattern
 
-	N.B. Increase 'theta' and 'epsilon' by 'XR*YR'x and reduce 'h' (relative to 
+	N.B. Increase 'theta' and 'epsilon' by 'XR*YR/2'x and reduce 'h' (relative to 
 	original parameters in the paper)
 
 	Description
@@ -815,8 +808,6 @@ cdef np.ndarray retinal_neuron_strobe(int XR, int YR):
 cdef np.ndarray retinal_neuron_2_singles(int XR, int YR):
 	'''
 	Select 2 Non-Correlated Retinal Neurons
-
-	N.B. This function is NOT expected to work
 
 	Description
 		- This function performs select two individual retinal neurons to be
@@ -860,11 +851,11 @@ cdef np.ndarray retinal_neuron_2_singles(int XR, int YR):
 	return retinal_neurons
 
 # Select Retinal Neurons for Occular Dominance
-cdef np.ndarray retinal_neuron_occular_dominance(int XR, int YR, int loop_count):
+cdef np.ndarray retinal_neuron_ocular_dominance(int XR, int YR, int loop_count):
 	'''
-	Select Retinal Neurons for Occular Dominance
+	Select Retinal Neurons for Ocular Dominance
 
-	N.B. Increase 'theta' and 'epsilon' by '(XR*YR)/2'x and reduce 'h' (relative
+	N.B. Increase 'theta' and 'epsilon' by '(XR*YR)/4'x (relative
 	to original parameters in the paper)
 
 	Description
@@ -952,7 +943,7 @@ cdef np.ndarray activate_retinal_neurons(str activity_pattern, int XR,
 	elif activity_pattern == "2_singles":
 		return retinal_neuron_2_singles(XR, YR)
 
-	elif activity_pattern == "occular_dominance":
+	elif activity_pattern == "ocular_dominance":
 		return retinal_neuron_occular_dominance(XR, YR, loop_count)
 
 # Activate Tectal Sheet
@@ -1238,6 +1229,8 @@ cdef np.ndarray[double, ndim=2, mode='c'] _run(double ND_mean, double ND_sd, int
 		- This function executes a script for retinotopic map formation between a 
 		retinal sheet of neurons (dimensions: 'YR' by 'XR') and a sheet of 
 		tectal neurons (dimensions: 'YT' by 'XT')
+
+		- Functions prints 'X percent complete' for the deciles of completion
 		
 		- Function then plots the resulting 'fishnet' plot that indicates the
 		centre of the receptive fields for the tectal neurons
@@ -1290,7 +1283,7 @@ cdef np.ndarray[double, ndim=2, mode='c'] _run(double ND_mean, double ND_sd, int
 	s = implement_polarity_markers(PM_type, s, default_polarity_markers, XR, YR, XT, YT, PM_strength_increase)
 	s = normalise(s, ND_mean, XT, YT, XR, YR)
 	loop_count = 0
-	while loop_count <= num_loops:
+	while loop_count < num_loops:
 		retinal_neurons = activate_retinal_neurons(activity_pattern, XR, YR, loop_count)
 		H_grid_initial = activate_tectal_sheet(XT, YT, retinal_neurons, s)
 		new_H_grid = tectal_interactions(H_grid_initial, XT, YT, dt, beta, gamma, delta, alpha, theta, verbose)

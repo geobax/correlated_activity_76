@@ -1,32 +1,7 @@
 '''
 George Baxter
-Project - Function based script
-6/04/17
-'''
-'''
-Differences to previous version:
-
-	- new activation patterns including:
-		-> grids of 4
-		-> sweep
-		-> 2 pairs
-		-> pulse (this shouldn't work)
-		-> singles (this shouldn't work)
-		-> 2 singles (this shouldn't work)
-		-> left and right (occular dominance)
-
-	- quality function introduced
-
-	- plot function has the following changes:
-		-> white background
-		-> black border
-		-> no axis ticks/labels
-		-> size set to that of the retinal sheet
-		-> blue map
-
-To do:
-	- 
-
+Neural Activity Model of Retinotopic Map Formation
+Python Script
 '''
 
 import numpy as np
@@ -151,9 +126,10 @@ def configure_tectal_polarity_markers(XT, YT, default_polarity_markers):
 		orientation
 		- If 'default_polarity_markers' is 'True' then the tectal polarity 
 		markers are set to be the top left 4 tectal neurons
-		- If 'default_polarity_markers' is 'False' this function randomly 
-		selects a square of 4 tectal neurons to serve as the tectal polarity 
-		markers
+		- If 'default_polarity_markers' is 'True' then the tectal polarity 
+		markers are set to be the centre 4 tectal neurons (if the X or Y axes 
+		are odd numbers then the upper, or left 'centre' option is used)
+			-> this ensures nucleation begins at the centre of the map
 		- First polarity marker is identified by randomly selecting x and y 
 		coordinates within the tectal grid (dimensions: 'YT' x 'XT')
 		- Other 3 polarity markers are identified by selecting adjacent x and y 
@@ -172,14 +148,17 @@ def configure_tectal_polarity_markers(XT, YT, default_polarity_markers):
 	rows of 's' that correspond to the selected tectal polarity markers
 	'''
 	if default_polarity_markers:
-		T_PM_y1 = 0
-		T_PM_x1 = 0
-		T_PM_y2 = 0
-		T_PM_x2 = 1
-		T_PM_y3 = 1
-		T_PM_x3 = 0
-		T_PM_y4 = 1
-		T_PM_x4 = 1
+		'''Integer division of 'XT' and 'YT' gives the top-left neuron
+		coordinate. The other PMs are derived from the surrounding right and 
+		bottom 3 neurons'''
+		T_PM_x1 = XT//2
+		T_PM_y1 = YT//2
+		T_PM_x2 = T_PM_x1 + 1
+		T_PM_y2 = T_PM_y1
+		T_PM_x3 = T_PM_x1
+		T_PM_y3 = T_PM_y1 + 1
+		T_PM_x4 = T_PM_x2
+		T_PM_y4 = T_PM_y3
 
 	else:	
 		# Generate coordinates in the tectal grid: 'T_PM_y' is the Y coordinate and 'T_PM_x' the X coordinate
@@ -362,10 +341,11 @@ def implement_polarity_markers(PM_type, s, default_polarity_markers, XR, YR, XT,
 	Implement Polarity Markers
 
 	Description
-		- If 'PM_type' == 'square' then the 'square_polarity_markers' function 
+		- If 'PM_type' == 'Square' then the 'square_polarity_markers' function 
 		is used to set up the PMs
-		if 'PM_type' == 'graded' then the 'graded_polarity_markers' function is
+		- if 'PM_type' == 'Graded' then the 'graded_polarity_markers' function is
 		used to set up the PMs
+		- if 'PM_type' == 'none' then 's' is returned unmodified
 
 	Parameters
 		PM_type - string, determines which of the polarity marker functions is 
@@ -391,6 +371,9 @@ def implement_polarity_markers(PM_type, s, default_polarity_markers, XR, YR, XT,
 										YT, PM_strength_increase)
 	elif PM_type == "graded":
 		return graded_polarity_markers(s, XT, YT, XR, YR)
+
+	elif PM_type == "none":
+		return s
 
 # Normalisation
 def normalise(s, ND_mean, XT, YT, XR, YR):
@@ -488,7 +471,7 @@ def retinal_neuron_squares(XR, YR):
 	'''
 	Select Squares of Retinal Neurons
 
-	N.B. Increase 'theta' and 'epsilon' by 2x and reduce 'h' (relative to 
+	N.B. Increase 'theta' and 'epsilon' by 2x (relative to 
 	original parameters in the paper)
 
 	Description
@@ -559,7 +542,7 @@ def retinal_neuron_sweep(XR, YR, loop_count):
 	'''
 	Select Rows/Columns of Retinal Neurons for Sweep Activation Pattern
 
-	N.B. Increase 'theta' and 'epsilon' by 'XR'x and reduce 'h' (relative to 
+	N.B. Increase 'theta' and 'epsilon' by 'XR'x (relative to 
 	original parameters in the paper)
 
 	Description
@@ -619,8 +602,8 @@ def retinal_neuron_2_pairs(XR, YR):
 	'''
 	Select Two Pairs of Retinal Neurons
 
-	N.B. the level of non-correlated activity introduced by this activity
-	pattern is expected NOT to be suffucient to prevent map formation
+	N.B. Increase 'theta' and 'epsilon' by 2x (relative to 
+	original parameters in the paper)
 
 	Description
 		- This function randomly selects and activates two pairs of adjacent
@@ -758,7 +741,7 @@ def retinal_neuron_strobe(XR, YR):
 
 	This function is NOT expected to work
 
-	N.B. Increase 'theta' and 'epsilon' by 'XR*YR'x and reduce 'h' (relative to 
+	N.B. Increase 'theta' and 'epsilon' by 'XR*YR/2'x (relative to 
 	original parameters in the paper)
 
 	Description
@@ -782,8 +765,6 @@ def retinal_neuron_strobe(XR, YR):
 def retinal_neuron_2_singles(XR, YR):
 	'''
 	Select 2 Non-Correlated Retinal Neurons
-
-	N.B. This function is NOT expected to work
 
 	Description
 		- This function performs select two individual retinal neurons to be
@@ -823,12 +804,12 @@ def retinal_neuron_2_singles(XR, YR):
 
 	return retinal_neurons
 
-# Select Retinal Neurons for Occular Dominance
-def retinal_neuron_occular_dominance(XR, YR, loop_count):
+# Select Retinal Neurons for Ocular Dominance
+def retinal_neuron_ocular_dominance(XR, YR, loop_count):
 	'''
-	Select Retinal Neurons for Occular Dominance
+	Select Retinal Neurons for Ocular Dominance
 
-	N.B. Increase 'theta' and 'epsilon' by '(XR*YR)/2'x and reduce 'h' (relative
+	N.B. Increase 'theta' and 'epsilon' by '(XR*YR)/4'x (relative
 	to original parameters in the paper)
 
 	Description
@@ -912,8 +893,8 @@ def activate_retinal_neurons(activity_pattern, XR, YR, loop_count):
 	elif activity_pattern == "2_singles":
 		return retinal_neuron_2_singles(XR, YR)
 
-	elif activity_pattern == "occular_dominance":
-		return retinal_neuron_occular_dominance(XR, YR, loop_count)
+	elif activity_pattern == "ocular_dominance":
+		return retinal_neuron_ocular_dominance(XR, YR, loop_count)
 
 # Activate Tectal Sheet
 def activate_tectal_sheet(XT, YT, retinal_neurons, s):
@@ -1131,7 +1112,7 @@ def update_synaptic_weightings(new_H_grid, theta, XT, YT, retinal_neurons, h, s,
 		- 'new_H_star' is then reshaped into a linear array ('lin_new_H_star') 
 		- For each tectal nueron in 'lin_new_H_star', if the post-threshold 
 		potential is greater than the modification threshold ('epsilon') then 
-		the synapse between the activated retinal neurons ('RN1' and 'RN2') is 
+		the synapse between the activated retinal neurons ('retinal_neurons) is 
 		increased in proportion to the tectal neuron depolarisation
 
 	Parameters
@@ -1219,6 +1200,7 @@ def plot_fish_net(COM_X, COM_Y, repeat_count, s, XT, YT, XR, YR):
 			-> this facilitates the joining up of the data points to form the 
 				net
 		- The fishnet plot is then plotted using the COM data generated
+		- The plot is then saved
 
 	Parameters
 		repeat_count - integer corresponding to which repeat of the run() 
@@ -1266,7 +1248,7 @@ def quality(XT, YT, XR, YR, COM_X, COM_Y):
 		respectively
 		- The pythagorean distance between the ideal centre of mass and the
 		actual centre of mass of each tectal neuron is calculated and noramlised
-		to the maximum possible distance (sqrt(XR+YR))
+		to the maximum possible distance (sqrt(XT**2+YT**2))
 		- These are summed and divided by the number of tectal neurons
 		- 1 minus this number gives the quality of the map (higher value -> 
 		higher quality)
@@ -1291,7 +1273,7 @@ def quality(XT, YT, XR, YR, COM_X, COM_Y):
 
 	# Calculate 'quality'
 	# Calculate max displacement (max_disp) for future use
-	max_disp = math.sqrt(XR+YR)
+	max_disp = math.sqrt(XT*XT + YT*YT)
 
 	# Set initial quality to 0
 	q = 0
@@ -1329,6 +1311,9 @@ def run(num_repeats, ND_mean, ND_sd, XT, YT, XR, YR, PM_type, default_polarity_m
 		- This function executes a script for retinotopic map formation between a 
 		retinal sheet of neurons (dimensions: 'YR' by 'XR') and a sheet of 
 		tectal neurons (dimensions: 'YT' by 'XT')
+
+		- It does so by importing the all of the above functions from a Cython
+		library
 		
 		- Function then plots the resulting 'fishnet' plot that indicates the
 		centre of the receptive fields for the tectal neurons
@@ -1399,7 +1384,8 @@ def run(num_repeats, ND_mean, ND_sd, XT, YT, XR, YR, PM_type, default_polarity_m
 		quality_matrix[repeat_count-1] = q
 
 		print ('Quality = %f' % q)
-		file.write('Quality = %f\n' % q) 
+		file.write('Quality = %f\n' % q)
+		file.write('\n')
 
 
 		repeat_count += 1
@@ -1423,8 +1409,8 @@ def run(num_repeats, ND_mean, ND_sd, XT, YT, XR, YR, PM_type, default_polarity_m
 if __name__ == '__main__':
 
 
-	run(num_repeats=10, ND_mean=2.5, ND_sd=0.14, XT=10, YT=10, XR=8,
-		YR=8, default_polarity_markers=True, PM_type="square", PM_strength_increase=5.0,
-		activity_pattern = "pairs", dt=1.0, beta=0.05, gamma=0.025, delta=-0.06, alpha=-0.5, theta=(10.0*(1)), 
-		h=(0.016*0.025), num_loops=2000000, verbose=False, epsilon=(2.0*(1)))
+	run(num_repeats=10, ND_mean=2.5, ND_sd=0.14, XT=10, YT=10, XR=10,
+		YR=10, default_polarity_markers=True, PM_type="graded", PM_strength_increase=5.0,
+		activity_pattern = "strobe", dt=1.0, beta=0.05, gamma=0.025, delta=-0.06, alpha=-0.5, theta=(10.0*(50)), 
+		h=(0.016*0.1), num_loops=500000, verbose=False, epsilon=(2.0*(50)))
 
