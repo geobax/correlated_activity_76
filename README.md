@@ -1,2 +1,2 @@
-# correlated_activity_76
+# COMPUTATIONAL EVALUATION OF THE NEURAL ACTIVITY MODEL OF RETINOTOPIC MAP FORMATION
 Computational Model of Willshaw &amp; Malsburg, 1976
