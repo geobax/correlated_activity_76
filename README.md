@@ -6,7 +6,7 @@ I recommend reading *"How Patterned Neural Connections Can Be Set Up By Self-Org
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will allow you to get a copy of the project up and running on your local machine for development and testing purposes.
 
 **1.** Download:
 * sim.py
@@ -76,7 +76,7 @@ Other prerequisites include:
 
 ## Author
 
-**George Baxter**
+**George Christopher Baxter**
 
 ## Acknowledgments
 
