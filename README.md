@@ -64,9 +64,9 @@ This produces and saves a 5 second GIF of the development of the retinotopic map
 
 ![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif)
 
-### Prerequisites
+## Prerequisites
 
-What things you need to install the software and how to install them
+The easiest way to get up and running is to install Python 2.7 via [Anaconda](https://www.continuum.io/downloads)
 
 ```
 Give examples
