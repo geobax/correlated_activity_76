@@ -50,13 +50,15 @@ python sim.py
 **5.** Once the script has executed the following are saved:
 * The plots of the retinotopic maps produced
 * 'map_qualities.txt' file of the qualities of each map, as well as the group's mean and stadard deviation in quality
-* 'r.npy' file containing synaptic weight matrices, periodically saved as the final map of the group develops
+* 'r.npy' file containing synaptic weight matrices, periodically saved, as the final map of the group develops
 
 **6.** Open the terminal at the relevent folder and type:
 ```
 python gif_animation.py
 ```
-This produces and saves a 5 second GIF of the development of the retinotopic map that 'r.pny' corresponds too
+This produces and saves a 5 second GIF of the development of the retinotopic map that 'r.pny' corresponds to.
+
+![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif)
 
 ### Prerequisites
 
