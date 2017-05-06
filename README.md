@@ -2,7 +2,7 @@
 
 A computational model was constructed in the Python™ and Cython programming languages and used to evaluate Willshaw and Malsburg’s neural activity theory of topographically organised network development. The investigation focuses on the development of retinotopic maps in the optic tectum of fish and amphibians. This study demonstrates that the neural activity model is able to successfully explain the systems-matching results observed in surgical mismatch experiments and that the model is robust to different patterns of retinal activity. Eight different types of retinal activity pattern are investigated, animations of map formation are produced and a novel function is developed to allow quantitative assessment of the retinotopic maps produced by the model.
 
-I recommend reading *"How Patterned Neural Connections Can Be Set Up By Self-Organisation"* by *DJ Willshaw & C. von der Malsburg, 1976* before exploring this model.
+I recommend reading *"How Patterned Neural Connections Can Be Set Up By Self-Organisation"* by *DJ Willshaw & C. von der Malsburg, 1976*, before exploring this model.
 
 ## Getting Started
 
@@ -66,7 +66,13 @@ This produces and saves a 5 second GIF of the development of the retinotopic map
 
 ## Prerequisites
 
-The easiest way to get up and running is to install Python 2.7 via [Anaconda](https://www.continuum.io/downloads)
+The easiest way to get up and running is to install Python 2.7 via [Anaconda](https://www.continuum.io/downloads), as this comes packaged with the Numpy and Scipy libraries that are used extensilvely in this model.
+
+Other prerequisites include:
+```
+* [Cython](http://cython.org) v.0.24
+* [GCC](https://gcc.gnu.org) v.7.1
+```
 
 ```
 Give examples
