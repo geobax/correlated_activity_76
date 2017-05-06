@@ -16,7 +16,7 @@ This calls setup.py, which compiles the sim.pyx Cython file into C
 
 **3.** Open sim.py and enter your chosen input parameters at the bottom of the script. Initial paramteres you may wish to vary include:
 
-* The dimensions of the retinal and tectal sheets: XR, YR, XT & YT. Note these sheets must be square.
+* The dimensions of the retinal and tectal sheets: 'XR', 'YR', 'XT' & 'YT'. Note these sheets must be square.
 
 * 'PM_type'; the type of polarity marker, of which there are 4 style:
 	* 'none'. No polarity markers are implemented
@@ -51,7 +51,7 @@ python sim.py
 ```
 python gif_animation.py
 ```
-This produces and saves a 5 second gif of the development of the retinotopic map that 'r.pny' corresponds too
+This produces and saves a 5 second GIF of the development of the retinotopic map that 'r.pny' corresponds too
 
 ### Prerequisites
 
