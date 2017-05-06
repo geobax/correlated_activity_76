@@ -6,7 +6,7 @@ A computational model was constructed in the Python™ and Cython programming la
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-**1.** Download 
+**1.** Download:
 * sim.py
 * sim.pyx
 * setup.py
@@ -58,7 +58,9 @@ python gif_animation.py
 ```
 This produces and saves a 5 second GIF of the development of the retinotopic map that 'r.pny' corresponds to.
 
-![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif "Example Retinotopic Map Formation")
+### Example Retinotopic Map Formation
+
+![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif)
 
 ### Prerequisites
 
