@@ -6,15 +6,15 @@ A computational model was constructed in the Python™ and Cython programming la
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-1. Download sim.py, sim.pyx, setup.py, build.sh and gif_animation.py
+**1.** Download sim.py, sim.pyx, setup.py, build.sh and gif_animation.py
 
-2. Open a terminal at the relevant folder and type:
+**2.** Open a terminal at the relevant folder and type:
 ```
 bash build.sh
 ```	
 This calls setup.py, which compiles the sim.pyx Cython file into C
 
-3. Open sim.py and enter your chosen input parameters at the bottom of the script. Initial paramteres you may wish to vary include:
+**3.** Open sim.py and enter your chosen input parameters at the bottom of the script. Initial paramteres you may wish to vary include:
 
 * The dimensions of the retinal and tectal sheets: XR, YR, XT & YT. Note these sheets must be square.
 
@@ -37,17 +37,17 @@ This calls setup.py, which compiles the sim.pyx Cython file into C
 
 	Note the neural firing threshold ('theta') and neural modification threshold ('epsilon') need to be increased in accordance with the number of retinal neurons active as part of the activity pattern (this is detailed in each of the activity pattern functions)
 
-4. Open a terminal at the relevent folder and type:
+**4.** Open a terminal at the relevent folder and type:
 ```
 python sim.py
 ```
 
-5. Once the script has executed the following are saved:
+**5.** Once the script has executed the following are saved:
 * The plots of the retinotopic maps produced
 * 'map_qualities.txt' file of the qualities of each map, as well as the group's mean and stadard deviation in quality
 * 'r.npy' file containing synaptic weight matrices, periodically saved as the final map of the group develops
 
-6. Open the terminal at the relevent folder and type:
+**6.** Open the terminal at the relevent folder and type:
 ```
 python gif_animation.py
 ```
