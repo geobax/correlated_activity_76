@@ -6,13 +6,18 @@ A computational model was constructed in the Python™ and Cython programming la
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-**1.** Download sim.py, sim.pyx, setup.py, build.sh and gif_animation.py
+**1.** Download 
+* sim.py
+* sim.pyx
+* setup.py
+* build.sh
+* gif_animation.py
 
 **2.** Open a terminal at the relevant folder and type:
 ```
 bash build.sh
 ```	
-This calls setup.py, which compiles the sim.pyx Cython file into C
+This calls setup.py, which compiles the sim.pyx Cython file into C.
 
 **3.** Open sim.py and enter your chosen input parameters at the bottom of the script. Initial paramteres you may wish to vary include:
 
