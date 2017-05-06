@@ -66,7 +66,7 @@ This produces and saves a 5 second GIF of the development of the retinotopic map
 
 ## Prerequisites
 
-The easiest way to get up and running is to install Python 2.7 via [Anaconda](https://www.continuum.io/downloads), as this comes packaged with the Numpy and Scipy libraries that are used extensilvely in this model.
+The easiest way to get up and running is to install Python 2.7 via [Anaconda](https://www.continuum.io/downloads), as this comes packaged with the Numpy and Scipy libraries that are used extensively in this model.
 
 Other prerequisites include:
 
