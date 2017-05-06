@@ -4,7 +4,7 @@ A computational model was constructed in the Python™ and Cython programming la
 
 I recommend reading *"How Patterned Neural Connections Can Be Set Up By Self-Organisation"* by *D.J. Willshaw & C. von der Malsburg, 1976*, before exploring this model.
 
-The code is designed to be read in conjunction with the 'project_report.pdf' file in this repository.
+The code is designed to be read in conjunction with the **'project_report.pdf'** file in this repository.
 
 ## Getting Started
 
