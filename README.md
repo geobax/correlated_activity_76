@@ -58,7 +58,7 @@ python gif_animation.py
 ```
 This produces and saves a 5 second GIF of the development of the retinotopic map that 'r.pny' corresponds to.
 
-![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif)
+![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif "Example Retinotopic Map Formation")
 
 ### Prerequisites
 
