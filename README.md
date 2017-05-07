@@ -74,6 +74,7 @@ Other prerequisites include:
 
 * [Cython](http://cython.org) v.0.24
 * [GCC](https://gcc.gnu.org) v.7.1
+* [ImageMagick](https://www.imagemagick.org) 
 
 
 ## Author
