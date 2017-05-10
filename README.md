@@ -27,7 +27,7 @@ This calls setup.py, which compiles the sim.pyx Cython file into C.
 
 * The dimensions of the retinal and tectal sheets: 'XR', 'YR', 'XT' & 'YT'. Note these sheets must be square.
 
-* 'PM_type'; the type of polarity marker, of which there are 4 style:
+* 'PM_type'; the type of polarity marker, of which there are 4 styles:
 	* 'none'. No polarity markers are implemented
 	* 'square'; this can be further modified by varying 'default_polarity_markers' between 'True' and 'False'
 		* 'True' defaults the polarity markers to the centre of the retinal and tectal sheets. This is polarity marker style 1
