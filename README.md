@@ -62,7 +62,9 @@ python gif_animation.py
 ```
 This produces and saves a 5 second GIF of the development of the retinotopic map that 'r.pny' corresponds to.
 
-### Example Retinotopic Map Formation
+### Example Animation of Retinotopic Map Formation
+
+This map is of a network of 10x10 retinal and tectal sheets, modeled using polarity marker style 1, 'pairs' activity pattern and 500,000 iterations.
 
 ![alt text](https://github.com/geobax/correlated_activity_76/blob/master/animation.gif)
 
