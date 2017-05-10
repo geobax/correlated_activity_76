@@ -87,5 +87,5 @@ Other prerequisites include:
 
 * The inspiration for this project is D.J. Willshaw & C. von der Malsburg's original 1976 paper _["How Patterned Neural Connections Can Be Set Up By Self-Organisation"](http://rspb.royalsocietypublishing.org/content/royprsb/194/1117/431.full.pdf)_.
 * I would like to thank my supervisor, Dr. Stephen Eglen, for his support, guidance and patience; without his help this project would not have come to fruition. 
-* I would also like to thank Professor David Willshaw, whose personal correspondence helped me to spot an error in the code that was preventing retinotopic map formation, saving crucial time.
+* I would also like to thank Professor David Willshaw, whose personal correspondence helped me to spot an error in the code that was preventing retinotopic map formation.
 
